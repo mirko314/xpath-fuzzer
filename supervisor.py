@@ -20,4 +20,7 @@ def testLibary(libaryName, testFileName, xpath):
   print output
   output, error = process.communicate()
 
+LIBARIES = ["xmllib2", "basex"]
+
+for
 testLibary("xmllib2", "inventory.xml", "//book")
