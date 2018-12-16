@@ -1,1 +1,15 @@
+ceiling(5.2)
+ceiling (-5.2)
+floor(123.213)
+round(100.3)=100
+min(//price)
+max(//price)
+avg(//price)
+count-not-empty(//price)
+count(//book)
+evaluate('ceiling(3)')
+//author[string()]
 //book
+/bookstore/book[price>35]/price
+/bookstore/book[price>35]/title
+count(//book)
