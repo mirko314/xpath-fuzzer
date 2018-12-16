@@ -122,8 +122,15 @@ execute_xpath_expression(const char* filename, const xmlChar* xpathExpr, const x
         return(-1);
     }
 
-    /* Print results */
-    print_xpath_nodes(xpathObj->nodesetval, stdout);
+    for(size_t i = 0; i < xpathObj->nodesetval->nodeNr; i++)
+    {
+        xmlBufferPtr buffer = xmlBufferCreate();
+        int size = xmlNodeDump(buffer, doc, xpathObj->nodesetval->nodeTab[i], 0, 1);
+
+        fprintf(stdout,"%s\n", buffer->content);
+    }
+    // Previously:
+    // print_xpath_nodes(xpathObj->nodesetval, stdout);
 
     /* Cleanup */
     xmlXPathFreeObject(xpathObj);

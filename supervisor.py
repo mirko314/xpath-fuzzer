@@ -12,10 +12,12 @@ def readInputs():
 def generateBashCmd(libaryName, testFileName, xpath):
   return 'sh ./docker/libaries/' + libaryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
 
+def testLibary(libaryName, testFileName, xpath):
+  bashCommand = generateBashCmd(libaryName, testFileName, xpath)
+  process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+  output = process.stdout.readlines()
+  saveOutput(libaryName, "1", "".join(output))
+  print output
+  output, error = process.communicate()
 
-
-process = subprocess.Popen(generateBashCmd("basex", "inventory.xml", "//book").split(), stdout=subprocess.PIPE)
-output = process.stdout.readlines()
-saveOutput("basex", "1", "".join(output))
-print output
-output, error = process.communicate()
+testLibary("xmllib2", "inventory.xml", "//book")
