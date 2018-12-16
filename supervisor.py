@@ -24,7 +24,7 @@ def readInputs():
   return f.readlines()
 
 def generateBashCmd(libaryName, testFileName, xpath):
-  return 'sh ./docker/libaries/' + libaryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
+  return 'sh ./libaries/' + libaryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
 
 def testLibary(libaryName, testFileName, xpath):
   bashCommand = generateBashCmd(libaryName, testFileName, xpath)
