@@ -13,21 +13,22 @@ class color:
   BOLD = '\033[1m'
   UNDERLINE = '\033[4m'
   END = '\033[0m'
-def saveOutput(libaryName, inputId, output):
+
+def saveOutput(libraryName, inputId, output):
   if not os.path.isdir("output/" + inputId + "/"):
     os.makedirs("output/" + inputId + "/")
-  f = open("output/" + inputId + "/" + libaryName + ".txt", "w")
+  f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
   f.write(output)
 
 def readInputs():
   f = open("xpath/input.txt", "r")
   return f.readlines()
 
-def generateBashCmd(libaryName, testFileName, xpath):
-  return 'bash ./libaries/' + libaryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
+def generateBashCmd(libraryName, testFileName, xpath):
+  return 'bash ./libraries/' + libraryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
 
-def testLibary(libaryName, testFileName, xpath):
-  bashCommand = generateBashCmd(libaryName, testFileName, xpath)
+def testlibrary(libraryName, testFileName, xpath):
+  bashCommand = generateBashCmd(libraryName, testFileName, xpath)
   process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
   return process.stdout.readlines()
   # output, error = process.communicate()
@@ -44,7 +45,7 @@ def checkMode():
   else:
     return "quick"
 
-LIBARIES = ["xmllib2", "basex"]
+LIBRARIES = ["xmllib2", "basex", "xqilla"]
 printInstructions()
 
 MODE = checkMode()
@@ -56,10 +57,10 @@ else:
 counter = 0
 for xpath in xpaths:
   counter += 1
-  for libaryName in LIBARIES:
-    print(" ".join(["Testing Libary:", libaryName, ", xpath:", xpath]))
-    output = testLibary(libaryName, "inventory.xml", xpath)
+  for libraryName in LIBRARIES:
+    print(" ".join(["Testing library:", libraryName, ", xpath:", xpath]))
+    output = testlibrary(libraryName, "inventory.xml", xpath)
     if MODE == "all":
-      saveOutput(libaryName, str(counter), "".join(output))
+      saveOutput(libraryName, str(counter), "".join(output))
     else:
       print("".join(output))

@@ -1,4 +1,4 @@
-# Supported xPath Libaries
+# Supported xPath libraries
 
 ## xqilla
 Options:

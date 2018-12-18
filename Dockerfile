@@ -4,6 +4,8 @@ RUN apt-get update
 RUN apt-get install libxml2
 RUN apt-get install basex --assume-yes
 RUN apt-get install xqilla --assume-yes
-COPY . /home
+COPY . /app
 
-WORKDIR "/home"
+RUN cd /app/libraries/xmllib2 && make
+
+WORKDIR "/app"
