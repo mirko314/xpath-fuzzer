@@ -9,6 +9,10 @@ docker run -it myimage
 ```
 
 ## Run
+There are 3 Tasks:
+  - Generate xPaths or craft them manually (xpath_builder.py)
+  - Test those xPaths against Libraries (supervisor.py)
+  - Analyse Testresults (analyzer.py)
 ```
 # Test all input.txt lines on testfile/inventory.xml
 python supervisor.py
@@ -25,3 +29,18 @@ python supervisor.py //book
 
 ## TODO
   - Setup Fixed Version numbers of libraries
+  - Analyize Script
+    - Strip Whitespace
+    - Normalize Error Messages
+    - Formatted Ouput in Console
+    - Saving in file for analysing / visualization
+  - xPath Generation Script
+    - Legit xPaths
+      - Functions
+      - Distinguish by xPath version
+    - Malicous Inputs
+      - Malformed
+
+## Open Questions
+  - How to craft mailcious inputs effectivly
+
