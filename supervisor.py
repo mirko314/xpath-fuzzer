@@ -29,7 +29,6 @@ def generateBashCmd(libraryName, testFileName, xpath):
 
 def testlibrary(libraryName, testFileName, xpath):
   bashCommand = generateBashCmd(libraryName, testFileName, xpath)
-  print(bashCommand)
   process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
   return process.stdout.readlines()
   # output, error = process.communicate()
