@@ -25,11 +25,12 @@ def readInputs():
   return f.readlines()
 
 def generateBashCmd(libraryName, testFileName, xpath):
-  return 'bash ./libraries/' + libraryName +'/exec_file.sh testfiles/' + testFileName + ' ' + xpath
+  return ['bash', './libraries/' + libraryName +'/exec_file.sh', 'testfiles/' + testFileName, xpath]
 
 def testlibrary(libraryName, testFileName, xpath):
   bashCommand = generateBashCmd(libraryName, testFileName, xpath)
-  process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+  print(bashCommand)
+  process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
   return process.stdout.readlines()
   # output, error = process.communicate()
 
