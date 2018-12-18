@@ -21,7 +21,7 @@ def saveOutput(libraryName, inputId, inputString, output):
     f.write(inputString)
 
   f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
-  f.write(output)
+  f.write(output.strip())
 
 def readInputs():
   f = open("xpath/input.txt", "r")
