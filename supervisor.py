@@ -14,9 +14,12 @@ class color:
   UNDERLINE = '\033[4m'
   END = '\033[0m'
 
-def saveOutput(libraryName, inputId, output):
+def saveOutput(libraryName, inputId, inputString, output):
   if not os.path.isdir("output/" + inputId + "/"):
     os.makedirs("output/" + inputId + "/")
+    f = open("output/" + inputId + "/xpath.txt", "w")
+    f.write(inputString)
+
   f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
   f.write(output)
 
@@ -61,6 +64,6 @@ for xpath in xpaths:
     print(" ".join(["Testing library:", libraryName, ", xpath:", xpath]))
     output = testlibrary(libraryName, "inventory.xml", xpath)
     if MODE == "all":
-      saveOutput(libraryName, str(counter), "".join(output))
+      saveOutput(libraryName, str(counter), xpath, "".join(output))
     else:
       print("".join(output))
