@@ -2,7 +2,7 @@
 
 ## Setup
 ```
-docker build docker -t xpath-fuzzer:latest
+docker build . -t xpath-fuzzer:latest
 docker run -it xpath-fuzzer
 # For Dev instead run docker run -v ${PWD}:/app -it myimage
 ```
