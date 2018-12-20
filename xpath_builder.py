@@ -10,13 +10,19 @@ mapping = {
 }
 
 def save_inputs(inputs):
+
   f = open(INPUTFILE, "w")
   f.writelines("\n".join(xpath_return))
+  print("Saved " + str(len(xpath_return)) + " xPaths to " + INPUTFILE)
+  print("Run them with 'python supervisor.py'")
 
 def get_functions():
   f = open(FUNCTIONSFILE, "r")
-  return f.readlines()
+  xpath_functions = f.readlines()
+  print("Read " + str(len(xpath_functions)) + " xPath Functions from " + FUNCTIONSFILE)
+  return xpath_functions
 
+print("Starting the creation of some xPaths")
 xpath_functions = get_functions()
 # Save all xPaths in xpath_return
 xpath_return = []
@@ -34,6 +40,6 @@ for xpath_function in xpath_functions:
   xpath_function = xpath_function.strip()
   xpath_return.append(xpath_function)
 
-print(xpath_return)
 save_inputs(xpath_return)
+print("Finish the creation of some xPaths")
 

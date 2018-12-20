@@ -13,16 +13,35 @@ class color:
   UNDERLINE = '\033[4m'
   END = '\033[0m'
 
+def readFile(filename):
+  f = open(filename, "r")
+  return f.readlines()
+
+print("Starting to analyze the outputs of /output.")
 # For every Folder in Output:
-for folder in os.listdir("output"):
+folders_to_analyse = os.listdir("output")
+for folder in folders_to_analyse:
   files = os.listdir("output/" + folder)
+  xpath_results = []
+  xpath_query = readFile("output/" + folder + "/xpath.txt")[0]
   files.remove("xpath.txt")
   for i in range(len(files)):
-    for i2 in range(i + 1, len(files)):
-      files_equal = filecmp.cmp("output/" + folder + "/" + files[i], "output/" + folder + "/" + files[i2])
-      output = ": output/" + folder + "/" + files[i] + " mit: " + "output/" + folder + "/" + files[i2]
-      if files_equal:
-        output = color.BLUE + "EQUAL Result:     " + output + color.END
-      else:
-        output = color.RED + "DIFFERENT Result: " +  output + color.END
-      print(output)
+    second_file_name = "output/" + folder + "/" + files[i]
+    second_file_content = readFile(second_file_name)
+    found_existing_result = False
+    for result in xpath_results:
+      if second_file_content == result[1]:
+        result[0].append(files[i])
+        found_existing_result = True
+        break
+    if not found_existing_result:
+      xpath_results.append([[files[i]], second_file_content])
+    # xpath_results should now have an array with:
+    # [[ [libname1, libnam2], "xpathresult"], [libname3, libnam4], "xpathresult2"]]
+    # output = ": " + file_name + " mit: " + second_file_name
+    # if files_equal:
+    #   output = color.BLUE + "EQUAL Result:     " + output + color.END
+    # else:
+    #   output = color.RED + "DIFFERENT Result: " +  output + color.END
+  print(xpath_query.strip() + " ( " + folder + "): " + str(xpath_results))
+print("Finished to analyze the outputs of /output.")

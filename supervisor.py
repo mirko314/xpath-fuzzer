@@ -1,6 +1,8 @@
 import subprocess
 import sys
 import os
+import time
+from string import whitespace
 
 class color:
   PURPLE = '\033[95m'
@@ -14,6 +16,10 @@ class color:
   UNDERLINE = '\033[4m'
   END = '\033[0m'
 
+
+def stripWhitespace(string):
+  return string.translate(None, whitespace)
+
 def saveOutput(libraryName, inputId, inputString, output):
   if not os.path.isdir("output/" + inputId + "/"):
     os.makedirs("output/" + inputId + "/")
@@ -21,7 +27,8 @@ def saveOutput(libraryName, inputId, inputString, output):
     f.write(inputString)
 
   f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
-  f.write(output.strip())
+  output = stripWhitespace(output)
+  f.write(output)
 
 def readInputs():
   f = open("xpath/input.txt", "r")
@@ -57,6 +64,7 @@ if MODE == "all":
 else:
   xpaths = [sys.argv[1]]
 
+now = time.time()
 counter = 0
 for xpath in xpaths:
   counter += 1
@@ -67,3 +75,5 @@ for xpath in xpaths:
       saveOutput(libraryName, str(counter), xpath, "".join(output))
     else:
       print("".join(output))
+time_used = time.time() - now
+print("Testing took: " + str(time_used) + " seconds to test " + str(len(LIBRARIES)) + " libraries with " + str(counter) + " xPath expressions." )
