@@ -43,5 +43,5 @@ for folder in folders_to_analyse:
     #   output = color.BLUE + "EQUAL Result:     " + output + color.END
     # else:
     #   output = color.RED + "DIFFERENT Result: " +  output + color.END
-  print(xpath_query.strip() + " ( " + folder + "): " + str(xpath_results))
+  print(xpath_query.strip() + " (Folder: " + folder + "): " + str(xpath_results))
 print("Finished to analyze the outputs of /output.")
