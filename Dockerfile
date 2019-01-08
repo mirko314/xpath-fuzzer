@@ -9,15 +9,19 @@ RUN apt-get install gcc make vim --assume-yes
 # Ruby
 RUN apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev bundler --assume-yes
 RUN gem install nokogiri rexml
+
+
 # For Development comment out the next two lines and instead of Copy bind the Repo as Volume
 # Then start the docker container and execute make manually
-# COPY . /app
+COPY . /app
 
+# xmllib2 script currently not really usable
 # RUN cd /app/libraries/xmllib2 && make
 
-RUN cd /usr/local/lib && wget https://www.antlr.org/download/antlr-4.7.2-complete.jar
-RUN echo 'alias antlr4="java -jar /usr/local/lib/antlr-4.7.2-complete.jar"' >> ~/.bashrc && echo 'alias grun="java org.antlr.v4.gui.TestRig"' >> ~/.bashrc && echo 'export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"' >> ~/.bashrc
 
+# Install Antlr4, later maybe used for automatic xpath generation based on xpath grammar
+# RUN cd /usr/local/lib && wget https://www.antlr.org/download/antlr-4.7.2-complete.jar
+# RUN echo 'alias antlr4="java -jar /usr/local/lib/antlr-4.7.2-complete.jar"' >> ~/.bashrc && echo 'alias grun="java org.antlr.v4.gui.TestRig"' >> ~/.bashrc && echo 'export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"' >> ~/.bashrc
 # RUN cd /app/antlr4 && antlr4 xpath.g4 && javac xpath*.java
 #grun xpath main -tree
 
