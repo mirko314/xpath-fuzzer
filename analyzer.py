@@ -1,5 +1,9 @@
 import os
 import filecmp
+import textwrap
+from util import color
+from util import concatenate_list_data
+from util import strip_whitespace
 
 class color:
   PURPLE = '\033[95m'
@@ -13,9 +17,26 @@ class color:
   UNDERLINE = '\033[4m'
   END = '\033[0m'
 
+def remove_file_type(file_name):
+  return file_name[:-4]
+
 def readFile(filename):
   f = open(filename, "r")
-  return f.readlines()
+  return f.read()
+
+def save_output_array(xpath_query, foldername, results):
+  # Results:
+  # [Array of different Testresults of type: [Array of Libraries, Testresult of those Libraries]]
+  print("------------------------------------------------------------")
+  print( "'" + xpath_query.strip() + "'  in Folder: " + folder + ": ")
+  for result in xpath_results:
+    libraries = result[0]
+    test_result = result[1]
+    print("\t" + (", ").join(libraries) + ": " + textwrap.shorten(test_result, 40))
+
+
+def compare_results(result1, result2):
+  return strip_whitespace(result1) == strip_whitespace(result2)
 
 print("Starting to analyze the outputs of /output.")
 # For every Folder in Output:
@@ -23,14 +44,14 @@ folders_to_analyse = os.listdir("output")
 for folder in folders_to_analyse:
   files = os.listdir("output/" + folder)
   xpath_results = []
-  xpath_query = readFile("output/" + folder + "/xpath.txt")[0]
+  xpath_query = readFile("output/" + folder + "/xpath.txt")
   files.remove("xpath.txt")
   for i in range(len(files)):
     second_file_name = "output/" + folder + "/" + files[i]
     second_file_content = readFile(second_file_name)
     found_existing_result = False
     for result in xpath_results:
-      if second_file_content == result[1]:
+      if compare_results(second_file_content, result[1]):
         result[0].append(files[i])
         found_existing_result = True
         break
@@ -43,5 +64,7 @@ for folder in folders_to_analyse:
     #   output = color.BLUE + "EQUAL Result:     " + output + color.END
     # else:
     #   output = color.RED + "DIFFERENT Result: " +  output + color.END
-  print(xpath_query.strip() + " (Folder: " + folder + "): " + str(xpath_results))
+  save_output_array(xpath_query, folder, xpath_results)
+
+
 print("Finished to analyze the outputs of /output.")

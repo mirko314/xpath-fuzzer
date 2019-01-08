@@ -1,16 +1,18 @@
 FROM openjdk:latest
 RUN apt-get update
 # Install XPATH Libs
+RUN apt-get install python3 --assume-yes
 RUN apt-get install libxml2
 RUN apt-get install basex --assume-yes
 RUN apt-get install xqilla --assume-yes
-RUN apt-get install make --assume-yes
-RUN apt-get install gcc --assume-yes
-RUN apt-get install vim --assume-yes
-
+RUN apt-get install gcc make vim --assume-yes
+# Ruby
+RUN apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev bundler --assume-yes
+RUN gem install nokogiri rexml
 # For Development comment out the next two lines and instead of Copy bind the Repo as Volume
 # Then start the docker container and execute make manually
-COPY . /app
+# COPY . /app
+
 # RUN cd /app/libraries/xmllib2 && make
 
 RUN cd /usr/local/lib && wget https://www.antlr.org/download/antlr-4.7.2-complete.jar

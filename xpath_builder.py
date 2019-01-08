@@ -14,7 +14,7 @@ def save_inputs(inputs):
   f = open(INPUTFILE, "w")
   f.writelines("\n".join(xpath_return))
   print("Saved " + str(len(xpath_return)) + " xPaths to " + INPUTFILE)
-  print("Run them with 'python supervisor.py'")
+  print("Run them with 'python3 supervisor.py'")
 
 def get_functions():
   f = open(FUNCTIONSFILE, "r")
@@ -30,7 +30,7 @@ for xpath_function in xpath_functions:
   #remove return type
   xpath_function = xpath_function.split(' ', 1)[1]
   # replace params types by values
-  for k, v in mapping.iteritems():
+  for k, v in mapping.items():
     xpath_parameters = xpath_function[xpath_function.find('(')::]
     rest = xpath_function[:xpath_function.find('('):]
     xpath_function = rest + xpath_parameters.replace(k, v)

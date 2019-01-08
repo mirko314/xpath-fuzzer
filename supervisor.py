@@ -2,23 +2,9 @@ import subprocess
 import sys
 import os
 import time
-from string import whitespace
-
-class color:
-  PURPLE = '\033[95m'
-  CYAN = '\033[96m'
-  DARKCYAN = '\033[36m'
-  BLUE = '\033[94m'
-  GREEN = '\033[92m'
-  YELLOW = '\033[93m'
-  RED = '\033[91m'
-  BOLD = '\033[1m'
-  UNDERLINE = '\033[4m'
-  END = '\033[0m'
-
-
-def stripWhitespace(string):
-  return string.translate(None, whitespace)
+from util import color
+from util import concatenate_list_data
+from util import strip_whitespace
 
 def saveOutput(libraryName, inputId, inputString, output):
   if not os.path.isdir("output/" + inputId + "/"):
@@ -27,7 +13,7 @@ def saveOutput(libraryName, inputId, inputString, output):
     f.write(inputString)
 
   f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
-  output = stripWhitespace(output)
+  output = strip_whitespace(output)
   f.write(output)
 
 def readInputs():
@@ -40,7 +26,7 @@ def generateBashCmd(libraryName, testFileName, xpath):
 def testlibrary(libraryName, testFileName, xpath):
   bashCommand = generateBashCmd(libraryName, testFileName, xpath)
   process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
-  return process.stdout.readlines()
+  return concatenate_list_data(process.stdout.readlines())
   # output, error = process.communicate()
 
 def printInstructions():
@@ -55,7 +41,8 @@ def checkMode():
   else:
     return "quick"
 
-LIBRARIES = ["xmllib2", "basex", "xqilla"]
+# LIBRARIES = ["xmllib2", "basex", "xqilla"]
+LIBRARIES = ["nokogiri", "basex", "xqilla", "rexml"]
 printInstructions()
 
 MODE = checkMode()
@@ -72,7 +59,7 @@ for xpath in xpaths:
     print(" ".join(["Testing library:", libraryName, ", xpath:", xpath]))
     output = testlibrary(libraryName, "inventory.xml", xpath)
     if MODE == "all":
-      saveOutput(libraryName, str(counter), xpath, "".join(output))
+      saveOutput(libraryName, str(counter), xpath, output)
     else:
       print("".join(output))
 time_used = time.time() - now
