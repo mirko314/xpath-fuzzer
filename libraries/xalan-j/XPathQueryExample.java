@@ -24,9 +24,13 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.NodeList;
 // import org.xml.sax.SAXException;
 
+
 public class XPathQueryExample {
 
   public static void main(String[] args) {
+    // System.setProperty("javax.xml.xpath.XPathFactory:"+NamespaceConstant.OBJECT_MODEL_SAXON, "net.sf.saxon.xpath.XPathFactoryImpl");
+    XPathFactory xpathFactory = XPathFactory.newInstance();
+    // System.out.println("-----------------------" + xpathFactory.toString());
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setNamespaceAware(true);
     DocumentBuilder builder;
@@ -38,7 +42,7 @@ public class XPathQueryExample {
       doc = builder.parse(file_name);
 
       // Create XPathFactory object
-      XPathFactory xpathFactory = XPathFactory.newInstance();
+      // XPathFactory xpathFactory = XPathFactory.newInstance();
 
       // Create XPath object
       XPath xpath = xpathFactory.newXPath();
