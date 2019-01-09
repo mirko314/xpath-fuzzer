@@ -42,7 +42,7 @@ def checkMode():
     return "quick"
 
 # LIBRARIES = ["xmllib2", "basex", "xqilla"]
-LIBRARIES = ["nokogiri", "basex", "xqilla", "rexml"]
+LIBRARIES = ["nokogiri", "basex", "xqilla", "rexml", "xalan-j"]
 printInstructions()
 
 MODE = checkMode()

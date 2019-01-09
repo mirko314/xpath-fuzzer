@@ -14,6 +14,7 @@ RUN gem install nokogiri rexml
 # For Development comment out the next two lines and instead of Copy bind the Repo as Volume
 # Then start the docker container and execute make manually
 COPY . /app
+RUN cd /app/libraries && bash ./compile.sh
 
 # xmllib2 script currently not really usable
 # RUN cd /app/libraries/xmllib2 && make
