@@ -21,11 +21,11 @@ def readInputs():
   return f.readlines()
 
 def generateBashCmd(libraryName, testFileName, xpath):
-  return ['bash', './libraries/' + libraryName +'/exec_file.sh', 'testfiles/' + testFileName, xpath]
+  return ['bash', 'exec_file.sh', '/app/testfiles/' + testFileName, xpath]
 
 def testlibrary(libraryName, testFileName, xpath):
   bashCommand = generateBashCmd(libraryName, testFileName, xpath)
-  process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
+  process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, cwd='/app/libraries/' + libraryName )
   return concatenate_list_data(process.stdout.readlines())
   # output, error = process.communicate()
 
@@ -42,7 +42,7 @@ def checkMode():
     return "quick"
 
 # LIBRARIES = ["xmllib2", "basex", "xqilla"]
-LIBRARIES = ["nokogiri", "basex", "xqilla", "rexml", "xalan-j", "saxon"]
+LIBRARIES = ["nokogiri", "basex", "xqilla", "rexml", "xalan-j", "saxon", "jaxen"]
 printInstructions()
 
 MODE = checkMode()
