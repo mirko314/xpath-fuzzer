@@ -6,6 +6,7 @@ RUN apt-get install libxml2
 RUN apt-get install basex --assume-yes
 RUN apt-get install xqilla --assume-yes
 RUN apt-get install gcc make vim --assume-yes
+RUN apt-get install python3-lxml --assume-yes
 # Ruby
 RUN apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev bundler --assume-yes
 RUN gem install nokogiri rexml
