@@ -1,33 +1,57 @@
-number(//book)
-sum(//book)
-floor(123)
-ceiling(123)
-round(123)
-lower-case(testabc)
-upper-case(testabc)
-ends-with(testabc, testabc)
-avg(//book-numeric)
-min(//book-numeric)
-max(//book-numeric)
-count-not-empty(//book)
-last()
-position()
-count(//book)
-id(//book)
-local-name(//book)
-namespace-uri(//book)
-name(//book)
-string(//book)
-concat(testabc, testabc, testabc)
-starts-with(testabc, testabc)
-contains(testabc, testabc)
-substring-before(testabc, testabc)
-substring-after(testabc, testabc)
-substring(testabc, 123, 123)
-string-length(testabc)
-normalize-space(testabc)
-translate(testabc, testabc, testabc)
-boolean(//book)
-not(boolean)
-true()
-false()
+//./author
+//author
+//first.name
+///bookstore
+//author
+//book[/bookstore/@specialty=@style]
+//author/first-name
+//bookstore//title
+//bookstore/*/title
+//bookstore//book/excerpt//emph
+//title
+//author/*
+//book/*/last-name
+//*/*
+//*[@specialty]
+//@style
+//price/@exchange
+//price/@exchange/total
+//book[@style]
+//book/@style
+//@*
+//first-name
+//first-name
+//author[1]
+//author[first-name][3]
+//my:book
+//my:*
+//@my:*
+//book[last()]
+//book/author[last()]
+//(book/author)[last()]
+//book[excerpt]
+//book[excerpt]/title
+//book[excerpt]/author[degree]
+//book[author/degree]
+//author[degree][award]
+//author[degree and award]
+//author[(degree or award) and publication]
+//author[degree and not(publication)]
+//author[not(degree or award) and publication]
+//author[last-name = "Bob"]
+//author[last-name[1] = "Bob"]
+//author[last-name [position()=1]= "Bob"]
+//degree[@from != "Harvard"]
+//author[. = "Matthew Bob"]
+//author[last-name = "Bob" and ../price &gt; 50]
+//book[position() &lt;= 3]
+//author[not(last-name = "Bob")]
+//author[first-name = "Bob"]
+//author[* = "Bob"]
+//author[last-name = "Bob" and first-name = "Joe"]
+//price[@intl = "Canada"]
+//degree[position() &lt; 3]
+//p/text()[2]
+//ancestor::book[1]
+//ancestor::book[author][1]
+//ancestor::author[parent::book][1]

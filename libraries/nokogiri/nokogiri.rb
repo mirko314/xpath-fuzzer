@@ -3,7 +3,7 @@ require "nokogiri"
 file_name = ARGV[0]
 xpath =  ARGV[1]
 @doc = Nokogiri::XML(File.open(file_name))
-puts @doc.xpath(xpath)
+puts @doc.xpath(xpath) #, 'my' => 'uri:mynamespace'
 
 
 # doc = Nokogiri::XML::Document.parse(open('../../xml_files_windows/standard.xml'),
