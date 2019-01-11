@@ -50,28 +50,26 @@ public class vtdgen {
       FastLongBuffer flb = new FastLongBuffer(4);
       int i;
       byte[] xml = vn.getXML().getBytes();
-      while( (i=ap.evalXPath())!= -1){
-          flb.append(vn.getElementFragment());
+      try {
+        while( (i=ap.evalXPath())!= -1){
+            flb.append(vn.getElementFragment());
+        }
+      } catch (XPathEvalException e) {
+        System.out.print(ap.evalXPathToString());
+        return;
       }
       int size = flb.size();
-      if (size != 0){
-          for (int k = 0;k<size; k++){
-              ByteArrayOutputStream fos = new ByteArrayOutputStream();
-              fos.write(xml, flb.lower32At(k), flb.upper32At(k));
-              System.out.print(fos.toString( "UTF-8" ));
-          }
+      if (size != 0) {
+        for (int k = 0; k < size; k++) {
+          ByteArrayOutputStream fos = new ByteArrayOutputStream();
+          fos.write(xml, flb.lower32At(k), flb.upper32At(k));
+          System.out.print(fos.toString("UTF-8"));
+        }
 
       }
-    } catch (ParseException e) {
-      System.out.println(" XML file parsing error \n" + e);
-    } catch (NavException e) {
-      System.out.println(" Exception during navigation " + e);
-    } catch (XPathParseException e) {
 
-    } catch (XPathEvalException e) {
-
-    } catch (java.io.IOException e) {
-      System.out.println(" IO exception condition" + e);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }
