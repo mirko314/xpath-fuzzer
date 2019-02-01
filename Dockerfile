@@ -1,7 +1,7 @@
 FROM openjdk:latest
 RUN apt-get update
 # Install XPATH Libs
-RUN apt-get install python3 --assume-yes
+RUN apt-get install python3 python3-pip --assume-yes
 RUN apt-get install libxml2
 RUN apt-get install basex --assume-yes
 RUN apt-get install xqilla --assume-yes
@@ -22,9 +22,9 @@ RUN cd /app/libraries && bash ./compile.sh
 
 
 # Install Antlr4, later maybe used for automatic xpath generation based on xpath grammar
-# RUN cd /usr/local/lib && wget https://www.antlr.org/download/antlr-4.7.2-complete.jar
-# RUN echo 'alias antlr4="java -jar /usr/local/lib/antlr-4.7.2-complete.jar"' >> ~/.bashrc && echo 'alias grun="java org.antlr.v4.gui.TestRig"' >> ~/.bashrc && echo 'export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"' >> ~/.bashrc
+RUN cd /usr/local/lib && wget https://www.antlr.org/download/antlr-4.7.2-complete.jar
+RUN echo 'alias antlr4="java -jar /usr/local/lib/antlr-4.7.2-complete.jar"' >> ~/.bashrc && echo 'alias grun="java org.antlr.v4.gui.TestRig"' >> ~/.bashrc && echo 'export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"' >> ~/.bashrc
 # RUN cd /app/antlr4 && antlr4 xpath.g4 && javac xpath*.java
-#grun xpath main -tree
-
+RUN pip3 install grammarinator
+# grun xpath main -tree
 WORKDIR "/app"
