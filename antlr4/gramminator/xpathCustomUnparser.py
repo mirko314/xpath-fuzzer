@@ -38,9 +38,23 @@ class xpathCustomUnparser(xpathUnparser):
 
 
     def functionName(self):
-
         current = self.create_node(UnparserRule(name='functionName'))
         name = "string"
         current += UnlexerRule(src=name)
         return current
     functionName.min_depth = 1
+
+    @depthcontrol
+    def nCName(self):
+        current = self.create_node(UnparserRule(name='nCName'))
+        choice = self.choice([0 if [2, 1, 1][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_242', i), 1) for i, w in enumerate([1, 1, 1])])
+        self.unlexer.weights[('alt_242', choice)] = self.unlexer.weights.get(('alt_242', choice), 1) * self.unlexer.cooldown
+        # if choice == 0:
+        name = "book"
+        current += UnlexerRule(src=name)
+        # elif choice == 1:
+        #     current += self.unlexer.AxisName()
+        # elif choice == 2:
+        #     current += self.unlexer.NodeType()
+        return current
+    nCName.min_depth = 1

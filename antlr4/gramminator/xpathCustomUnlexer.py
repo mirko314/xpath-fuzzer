@@ -12,6 +12,14 @@ from grammarinator.runtime import *
 
 class xpathCustomUnlexer(xpathUnlexer):
 
+    def __init__(self, *, max_depth=float('inf'), weights=None, cooldown=1.0):
+        self.weights = dict()
+        super(xpathCustomUnlexer, self).__init__(max_depth=max_depth, weights=weights, cooldown=cooldown)
+        # self.unlexer = self
+        # self.max_depth = max_depth
+        # self.cooldown = cooldown
+        # self.set_options()
+
     # You probably want to rewrite this with a distinct CSS fuzzer.
     def style_sheet(self):
         return UnlexerRule(src='* {' \
