@@ -3,8 +3,8 @@
 from itertools import chain
 from grammarinator.runtime import *
 
-charset_0 = list(chain(*multirange_diff(printable_unicode_ranges, [(34, 35)])))
-charset_1 = list(chain(*multirange_diff(printable_unicode_ranges, [(92, 93)])))
+charset_0 = list(chain(*multirange_diff(printable_ascii_ranges, [(34, 35)])))
+charset_1 = list(chain(*multirange_diff(printable_ascii_ranges, [(92, 93)])))
 
 
 class xpathUnlexer(Grammarinator):

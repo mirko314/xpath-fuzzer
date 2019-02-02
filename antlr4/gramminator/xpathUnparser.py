@@ -188,10 +188,10 @@ class xpathUnparser(Grammarinator):
         self.unlexer.weights[('alt_164', choice)] = self.unlexer.weights.get(('alt_164', choice), 1) * self.unlexer.cooldown
         if choice == 0:
             current += self.pathExprNoRoot()
-            if self.unlexer.max_depth >= 5:
-                for _ in self.zero_or_one():
-                    current += self.create_node(UnlexerRule(src='|'))
-                    current += self.unionExprNoRoot()
+            # if self.unlexer.max_depth >= 5:
+            #     for _ in self.zero_or_one():
+            #         current += self.create_node(UnlexerRule(src='|'))
+            #         current += self.unionExprNoRoot()
 
         elif choice == 1:
             current += self.create_node(UnlexerRule(src='/'))
@@ -227,8 +227,8 @@ class xpathUnparser(Grammarinator):
         current = self.create_node(UnparserRule(name='filterExpr'))
         current += self.primaryExpr()
         if self.unlexer.max_depth >= 8:
-            for _ in self.zero_or_more():
-                current += self.predicate()
+            # for _ in self.zero_or_more():
+            current += self.predicate()
 
         return current
     filterExpr.min_depth = 2
@@ -237,10 +237,10 @@ class xpathUnparser(Grammarinator):
     def orExpr(self):
         current = self.create_node(UnparserRule(name='orExpr'))
         current += self.andExpr()
-        if self.unlexer.max_depth >= 5:
-            for _ in self.zero_or_more():
-                current += self.create_node(UnlexerRule(src='or'))
-                current += self.andExpr()
+        # if self.unlexer.max_depth >= 5:
+        #     for _ in self.zero_or_more():
+        #         current += self.create_node(UnlexerRule(src='or'))
+        #         current += self.andExpr()
 
         return current
     orExpr.min_depth = 5
@@ -249,10 +249,10 @@ class xpathUnparser(Grammarinator):
     def andExpr(self):
         current = self.create_node(UnparserRule(name='andExpr'))
         current += self.equalityExpr()
-        if self.unlexer.max_depth >= 4:
-            for _ in self.zero_or_more():
-                current += self.create_node(UnlexerRule(src='and'))
-                current += self.equalityExpr()
+        # if self.unlexer.max_depth >= 4:
+        #     for _ in self.zero_or_more():
+        #         current += self.create_node(UnlexerRule(src='and'))
+        #         current += self.equalityExpr()
 
         return current
     andExpr.min_depth = 4
@@ -299,15 +299,15 @@ class xpathUnparser(Grammarinator):
     def additiveExpr(self):
         current = self.create_node(UnparserRule(name='additiveExpr'))
         current += self.multiplicativeExpr()
-        if self.unlexer.max_depth >= 1:
-            for _ in self.zero_or_more():
-                choice = self.choice([0 if [0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_202', i), 1) for i, w in enumerate([1, 1])])
-                self.unlexer.weights[('alt_202', choice)] = self.unlexer.weights.get(('alt_202', choice), 1) * self.unlexer.cooldown
-                if choice == 0:
-                    current += self.create_node(UnlexerRule(src='+'))
-                elif choice == 1:
-                    current += self.create_node(UnlexerRule(src='-'))
-                current += self.multiplicativeExpr()
+        # if self.unlexer.max_depth >= 1:
+        #     for _ in self.zero_or_more():
+        #         choice = self.choice([0 if [0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_202', i), 1) for i, w in enumerate([1, 1])])
+        #         self.unlexer.weights[('alt_202', choice)] = self.unlexer.weights.get(('alt_202', choice), 1) * self.unlexer.cooldown
+        #         if choice == 0:
+        #             current += self.create_node(UnlexerRule(src='+'))
+        #         elif choice == 1:
+        #             current += self.create_node(UnlexerRule(src='-'))
+        #         current += self.multiplicativeExpr()
 
         return current
     additiveExpr.min_depth = 1
@@ -317,31 +317,34 @@ class xpathUnparser(Grammarinator):
         current = self.create_node(UnparserRule(name='multiplicativeExpr'))
         choice = self.choice([0 if [6, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_207', i), 1) for i, w in enumerate([1, 1])])
         self.unlexer.weights[('alt_207', choice)] = self.unlexer.weights.get(('alt_207', choice), 1) * self.unlexer.cooldown
-        if choice == 0:
-            current += self.unaryExprNoRoot()
-            if self.unlexer.max_depth >= 1:
-                for _ in self.zero_or_one():
-                    choice = self.choice([0 if [0, 0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_211', i), 1) for i, w in enumerate([1, 1, 1])])
-                    self.unlexer.weights[('alt_211', choice)] = self.unlexer.weights.get(('alt_211', choice), 1) * self.unlexer.cooldown
-                    if choice == 0:
-                        current += self.create_node(UnlexerRule(src='*'))
-                    elif choice == 1:
-                        current += self.create_node(UnlexerRule(src='div'))
-                    elif choice == 2:
-                        current += self.create_node(UnlexerRule(src='mod'))
-                    current += self.multiplicativeExpr()
+        # print(self.unlexer.weights)
+        # if choice == 0:
+        current += self.unaryExprNoRoot()
+            # if self.unlexer.max_depth >= 1:
+                # for _ in self.zero_or_one():
+                #     choice = self.choice([0 if [0, 0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_211', i), 1) for i, w in enumerate([1, 1, 1])])
+                #     self.unlexer.weights[('alt_211', choice)] = self.unlexer.weights.get(('alt_211', choice), 1) * self.unlexer.cooldown
+                #     if choice == 0:
+                #         current += self.create_node(UnlexerRule(src='*'))
+                #     elif choice == 1:
+                #         current += self.create_node(UnlexerRule(src='div'))
+                #     elif choice == 2:
+                #         current += self.create_node(UnlexerRule(src='mod'))
+                #     current += self.multiplicativeExpr()
+                #     print("choice == 0:" + str(choice))
 
-        elif choice == 1:
-            current += self.create_node(UnlexerRule(src='/'))
-            if self.unlexer.max_depth >= 1:
-                for _ in self.zero_or_one():
-                    choice = self.choice([0 if [0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_220', i), 1) for i, w in enumerate([1, 1])])
-                    self.unlexer.weights[('alt_220', choice)] = self.unlexer.weights.get(('alt_220', choice), 1) * self.unlexer.cooldown
-                    if choice == 0:
-                        current += self.create_node(UnlexerRule(src='div'))
-                    elif choice == 1:
-                        current += self.create_node(UnlexerRule(src='mod'))
-                    current += self.multiplicativeExpr()
+        # elif choice == 1:
+        #     current += self.create_node(UnlexerRule(src='/'))
+        #     if self.unlexer.max_depth >= 1:
+        #         for _ in self.zero_or_one():
+        #             choice = self.choice([0 if [0, 0][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_220', i), 1) for i, w in enumerate([1, 1])])
+        #             self.unlexer.weights[('alt_220', choice)] = self.unlexer.weights.get(('alt_220', choice), 1) * self.unlexer.cooldown
+        #             if choice == 0:
+        #                 current += self.create_node(UnlexerRule(src='div'))
+        #             elif choice == 1:
+        #                 current += self.create_node(UnlexerRule(src='mod'))
+        #             current += self.multiplicativeExpr()
+        #             print("choice == 1:" + str(choice))
 
         return current
     multiplicativeExpr.min_depth = 0
@@ -349,9 +352,9 @@ class xpathUnparser(Grammarinator):
     @depthcontrol
     def unaryExprNoRoot(self):
         current = self.create_node(UnparserRule(name='unaryExprNoRoot'))
-        if self.unlexer.max_depth >= 0:
-            for _ in self.zero_or_more():
-                current += self.create_node(UnlexerRule(src='-'))
+        # if self.unlexer.max_depth >= 0:
+        #     for _ in self.zero_or_more():
+        #         current += self.create_node(UnlexerRule(src='-'))
 
         current += self.unionExprNoRoot()
         return current

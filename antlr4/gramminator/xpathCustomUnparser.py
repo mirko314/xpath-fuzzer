@@ -25,11 +25,11 @@ class xpathCustomUnparser(xpathUnparser):
         # self.tag_names = list(tags.keys())
 
     # Override the original random_decision implementation in a way to increase the number of generated nodes.
-    def random_decision(self):
-        # Playing with size.
-        if self.node_cnt < self.max_cnt // 4:
-            return random.randint(0, 1000) > 100
-        return random.randint(0, 1000) < 400
+    # def random_decision(self):
+    #     # Playing with size.
+    #     if self.node_cnt < self.max_cnt // 4:
+    #         return random.randint(0, 1000) > 100
+    #     return random.randint(0, 1000) < 400
 
     # def nCName(self):
     #     current = self.create_node(UnparserRule(name='nCName'))
@@ -49,12 +49,12 @@ class xpathCustomUnparser(xpathUnparser):
         current = self.create_node(UnparserRule(name='nCName'))
         choice = self.choice([0 if [2, 1, 1][i] > self.unlexer.max_depth else w * self.unlexer.weights.get(('alt_242', i), 1) for i, w in enumerate([1, 1, 1])])
         self.unlexer.weights[('alt_242', choice)] = self.unlexer.weights.get(('alt_242', choice), 1) * self.unlexer.cooldown
-        # if choice == 0:
-        name = "book"
-        current += UnlexerRule(src=name)
-        # elif choice == 1:
-        #     current += self.unlexer.AxisName()
-        # elif choice == 2:
-        #     current += self.unlexer.NodeType()
+        if choice == 0:
+            name = "book"
+            current += UnlexerRule(src=name)
+        elif choice == 1:
+            current += self.unlexer.AxisName()
+        elif choice == 2:
+            current += self.unlexer.NodeType()
         return current
     nCName.min_depth = 1
