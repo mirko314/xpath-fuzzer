@@ -70,3 +70,16 @@ grun xpath main -tree
 (main (expr (orExpr (andExpr (equalityExpr (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot // (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book)))) (predicate [ (expr (orExpr (andExpr (equalityExpr (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName price)))))))))))) > (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (filterExpr (primaryExpr 3)))))))))))) ]))))))))))))))))
 
 ```
+## Collected Errors
+```
+python3 supervisor.py "-name:bookstore[.]" :
+Testing library: rexml , xpath: -name:bookstore[.]
+/usr/lib/ruby/2.3.0/rexml/xpath_parser.rb:431:in `expr': undefined method `to_f' for []:Array (NoMethodError)
+Did you mean?  to_s
+               to_a
+               to_h
+	from /usr/lib/ruby/2.3.0/rexml/xpath_parser.rb:127:in `match'
+	from /usr/lib/ruby/2.3.0/rexml/xpath_parser.rb:68:in `parse'
+	from /usr/lib/ruby/2.3.0/rexml/xpath.rb:78:in `match'
+	from /app/libraries/rexml/rexml.rb:9:in `<main>'
+```

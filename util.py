@@ -19,4 +19,4 @@ def concatenate_list_data(list):
     return result
 
 def strip_whitespace(string_to_strip):
-  return string_to_strip.translate({whitespace: None}).replace("\n", "")
+  return string_to_strip.translate({whitespace: None}).replace("\n", "").replace(" ", "")
