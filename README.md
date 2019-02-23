@@ -15,7 +15,8 @@ There are 3 Tasks:
   - Analyse Testresults (analyzer.py)
 ```
 # Generate xPaths based on xPath functions with replaced parameters
-python3 xpath_builder.py
+bash input_generation.sh
+<!-- python3 xpath_builder.py -->
 # Test all input.txt lines on testfile/inventory.xml
 python3 supervisor.py
 # Or e.g. test xpath //book on testfile/inventory.xml
@@ -58,6 +59,11 @@ python3 analyzer.py
 ```sh
 diff -yw output/1/xqilla.txt output/1/rexml.txt
 grun xpath main -tree
+
+cd antlr4/gramminator
+rm tests/*
+grammarinator-generate -l ./xpathCustomUnlexer.py -p ./xpathCustomUnparser.py -n 100 -d 20
+for f in test*; do (cat "${f}"; echo) >> /app/xpath/input.txt; done
 ```
 
 ## XPath Parse Trees
@@ -83,3 +89,108 @@ Did you mean?  to_s
 	from /usr/lib/ruby/2.3.0/rexml/xpath.rb:78:in `match'
 	from /app/libraries/rexml/rexml.rb:9:in `<main>'
 ```
+## Collected XPATHs
+
+Libs sind sich nicht ganz sicher was denn jetzt der Root ist:
+```
+/.//./..
+->
+saxon.txt, xalan-j.txt, jaxen.txt: <?xml-stylesheettype
+basex.txt: same  as saxon.txt, xalan-j.txt, jaxen.txt just with attribute reordering
+lxml: <bookstorespecialty="novel">
+VTD-Gen.txt, nokogiri.txt: <?xmlversion="1.0"?>
+rexml.txt: same as but with simple quotes and attribute reordering
+xqilla: <?xmlversion="1.1" BUMPS XML VERSION??
+
+Same:
+/|//child::*/.//..//parent::*
+
+```
+
+### TRUE OR FALSE 🤔
+```
+../@bookstore:bookstore<@first-name/..=.=preceding-sibling::book//bookstore/bookstore:book/.//@first-name>=//.>=..
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, rexml.txt, nokogiri.txt:
+  xalan-j.txt: false
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+  jaxen.txt: true
+
+
+'./..<../../@first-name<=..'
+  xqilla.txt, basex.txt, saxon.txt, rexml.txt:
+  lxml.txt: True
+  xalan-j.txt, nokogiri.txt: true
+  VTD-Gen.txt, jaxen.txt: false
+
+'first-name:bookstore[.]'
+  xqilla.txt, basex.txt, saxon.txt: true
+  lxml.txt: False
+  xalan-j.txt, VTD-Gen.txt, jaxen.txt, nokogiri.txt: false
+  rexml.txt: truefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsetruefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalse
+
+🙃 REXML kann sich nicht entscheiden und rastet richtig aus
+
+
+./@bookstore:bookstore/parent::first-name:book>following::bookstore<=..!=/.
+        xqilla.txt, basex.txt, saxon.txt, lxml.txt, nokogiri.txt:
+        xalan-j.txt: false
+        VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+        rexml.txt, jaxen.txt: true
+```
+
+```
+@first-name:bookstore//..=book:first-name
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, rexml.txt, jaxen.txt, nokogiri.txt:
+  xalan-j.txt: false
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+```
+
+### Was ist denn mit REXML los?
+```
+//@node:ancestor/..=ancestor-or-self::first-name:bookstore=.//.<=.
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, jaxen.txt, nokogiri.txt:
+  xalan-j.txt: true
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+  rexml.txt: falsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalsefalse
+
+//../../node//..!=//..
+  xqilla.txt, basex.txt, saxon.txt, xalan-j.txt, VTD-Gen.txt, jaxen.txt, nokogiri.txt: false
+  lxml.txt: False
+  rexml.txt: truetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetruetrue
+
+@book:book//.=//./.
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, nokogiri.txt:
+  xalan-j.txt, jaxen.txt: false
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+  rexml.txt: [...]
+```
+
+### Xalan-J gibt gerne immer false zurück
+```
+//@ancestor:namespace//node>@book//./@first-name:bookstore
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, rexml.txt, jaxen.txt, nokogiri.txt:
+  xalan-j.txt: false
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+
+//child::namespace:preceding-sibling/.!=..
+  xqilla.txt, basex.txt, saxon.txt, lxml.txt, rexml.txt, jaxen.txt, nokogiri.txt:
+  xalan-j.txt: false
+  VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+
+Manchmal aber auch Gerne true:
+/..//.//node>/..<=//ancestor::node:comment//..//@descendant-or-self>=//./child::namespace/./parent::descendant-or-self
+        xqilla.txt, basex.txt, saxon.txt, lxml.txt, rexml.txt, jaxen.txt, nokogiri.txt:
+        xalan-j.txt: true
+        VTD-Gen.txt: Syntaxerrorafteroraroundtheendof==>
+```
+
+```
+.<//.//@descendant-or-self//.
+  xqilla.txt, basex.txt, saxon.txt, xalan-j.txt, VTD-Gen.txt, jaxen.txt, nokogiri.txt: false
+  lxml.txt: False
+  rexml.txt:
+```
+
+```
+```
+

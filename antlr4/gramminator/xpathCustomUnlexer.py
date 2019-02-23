@@ -24,6 +24,7 @@ class xpathCustomUnlexer(xpathUnlexer):
             ('alt_135', 1): 0.001,
             ('alt_135', 2): 0.001,
             ('alt_164', 1): 0.001,
+            ('alt_164', 0): 1,
             #nameTest
             ('alt_235', 0): 0.001,
             ('alt_235', 1): 0.001,
