@@ -191,6 +191,47 @@ Manchmal aber auch Gerne true:
   rexml.txt:
 ```
 
+Using True / False as switch for different elements:
 ```
+<?xml version="1.0"?>
+<doc>
+  <data type="0">Evaluiert von BI</data>
+  <data type='1'>Evaluiert von Authentication</data>
+</doc>
+
+
+root@8107130e187d:/app# python3 supervisor.py "//data[@type=number((./..<../..)<=..)]"
+Welcome to the xPath Fuzzing Framework
+Testing library: nokogiri , xpath: //data[@type=number((./..<../..)<=..)]
+<data type="1">Evaluiert von Authentication</data>
+
+Testing library: basex , xpath: //data[@type=number((./..<../..)<=..)]
+[FORG0001] Cannot cast to xs:boolean: Evaluiert von BIEvaluiert von Au....
+
+Testing library: xqilla , xpath: //data[@type=number((./..<../..)<=..)]
+/dev/fd/63:1:1: error: Invalid lexical value [err:FORG0001]
+
+Testing library: rexml , xpath: //data[@type=number((./..<../..)<=..)]
+xpath_parser.rb:690:in `compare': undefined method `<=' for true:TrueClass
+
+Testing library: xalan-j , xpath: //data[@type=number((./..<../..)<=..)]
+<data type="1">Evaluiert von Authentication</data>
+
+Testing library: saxon , xpath: //data[@type=number((./..<../..)<=..)]
+; SystemID: ; Line#: 1; Column#: 37
+ValidationException: The string "Evaluiert von BI\n  Evaluiert ..."
+cannot be cast to a boolean
+
+Testing library: jaxen , xpath: //data[@type=number((./..<../..)<=..)]
+<data type="0">Evaluiert von BI</data>
+
+
+Testing library: lxml , xpath: //data[@type=number((./..<../..)<=..)]
+<data type="1">Evaluiert von Authentication</data>
+
+
+Testing library: VTD-Gen , xpath: //data[@type=number((./..<../..)<=..)]
+<data type="0">Evaluiert von BI</data>
+Testing took: 4.069594621658325 seconds to test 9 libraries with 1 xPath expressions.
 ```
 
