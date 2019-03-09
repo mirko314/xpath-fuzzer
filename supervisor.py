@@ -5,6 +5,7 @@ import time
 from util import color
 from util import concatenate_list_data
 from util import strip_whitespace
+from util import cleanup_errors
 
 def saveOutput(libraryName, inputId, inputString, output):
   if not os.path.isdir("output/" + inputId + "/"):
@@ -14,6 +15,7 @@ def saveOutput(libraryName, inputId, inputString, output):
 
   f = open("output/" + inputId + "/" + libraryName + ".txt", "w")
   output = strip_whitespace(output)
+  output = cleanup_errors(output)
   f.write(output)
 
 def readInputs():

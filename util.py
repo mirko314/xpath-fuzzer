@@ -18,5 +18,8 @@ def concatenate_list_data(list):
         result += str(element.decode('utf-8'))
     return result
 
+def cleanup_errors(string):
+  return string.replace("Syntaxerrorafteroraroundtheendof==>", "") # VTD
+
 def strip_whitespace(string_to_strip):
   return string_to_strip.translate({whitespace: None}).replace("\n", "").replace(" ", "")

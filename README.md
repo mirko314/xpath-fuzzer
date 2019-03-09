@@ -90,6 +90,10 @@ Did you mean?  to_s
 	from /app/libraries/rexml/rexml.rb:9:in `<main>'
 ```
 ## Collected XPATHs
+number(boolean(..))
+count(..)
+count(parent::*)
+
 
 Libs sind sich nicht ganz sicher was denn jetzt der Root ist:
 ```

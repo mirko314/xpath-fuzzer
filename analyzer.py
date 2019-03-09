@@ -27,6 +27,9 @@ def readFile(filename):
 def save_output_array(xpath_query, foldername, results):
   # Results:
   # [Array of different Testresults of type: [Array of Libraries, Testresult of those Libraries]]
+  # If all Libs have the same result, dont output anything
+  if len(results) == 1:
+    return
   print("------------------------------------------------------------")
   print( "'" + xpath_query.strip() + "'  in Folder: " + folder + ": ")
   for result in xpath_results:
