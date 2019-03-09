@@ -55,7 +55,7 @@ public class vtdgen {
             flb.append(vn.getElementFragment());
         }
       } catch (XPathEvalException e) {
-        System.out.print(ap.evalXPathToString());
+        // System.out.print(ap.evalXPathToString());
         return;
       }
       int size = flb.size();
@@ -63,13 +63,13 @@ public class vtdgen {
         for (int k = 0; k < size; k++) {
           ByteArrayOutputStream fos = new ByteArrayOutputStream();
           fos.write(xml, flb.lower32At(k), flb.upper32At(k));
-          System.out.print(fos.toString("UTF-8"));
+          // System.out.print(fos.toString("UTF-8"));
         }
 
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+
     }
   }
 }
