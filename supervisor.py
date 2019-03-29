@@ -8,9 +8,10 @@ from util import concatenate_list_data
 from util import strip_whitespace
 from util import cleanup_errors
 
-PARALLEL_PROCESSES = 1
+PARALLEL_PROCESSES = 20
 
 def saveOutput(libraryName, inputId, inputString, output):
+  inputId = inputId.zfill(3)
   if not os.path.isdir("output/" + inputId + "/"):
     os.makedirs("output/" + inputId + "/")
     f = open("output/" + inputId + "/xpath.txt", "w")
@@ -31,7 +32,7 @@ def generateBashCmd(libraryName, testFileName, xpath):
 def testlibrary(libraryName, testFileName, xpath):
   bashCommand = generateBashCmd(libraryName, testFileName, xpath)
   process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, cwd='/app/libraries/' + libraryName )
-  return concatenate_list_data(process.stdout.readlines())
+  return cleanup_errors(strip_whitespace(concatenate_list_data(process.stdout.readlines())))
   # output, error = process.communicate()
 
 def testAndSaveOutput(libraryName, testFileName, xpath, counter):

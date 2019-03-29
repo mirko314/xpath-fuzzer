@@ -55,10 +55,13 @@ python3 analyzer.py
   python3 supervisor.py "compare('abc', 'abc')"
   ```
 
+  basex, xqilla, saxon benutzen xpath v2
+
 ## 🚧 Command Line collection notes (WIP) 🚧
 ```sh
 diff -yw output/1/xqilla.txt output/1/rexml.txt
 grun xpath main -tree
+(End with ctrl-d)
 
 cd antlr4/gramminator
 rm tests/*
@@ -75,9 +78,39 @@ for f in test*; do (cat "${f}"; echo) >> /app/xpath/input.txt; done
 //book[price>3]
 (main (expr (orExpr (andExpr (equalityExpr (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot // (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book)))) (predicate [ (expr (orExpr (andExpr (equalityExpr (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName price)))))))))))) > (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (filterExpr (primaryExpr 3)))))))))))) ]))))))))))))))))
 
+
+/book>=/book
+(main (expr (orExpr (andExpr (
+  equalityExpr (
+  relationalExpr (
+    additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))
+  )
+  >=
+    (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book)))))))))))))
+))
+))))
+
+vs
+
+/book=/book
+(main (expr (orExpr (andExpr (
+  equalityExpr (
+    relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))))
+  =
+    (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))))
+)))))
 ```
 ## Collected Errors
 ```
+'/bookstore=/bookstore'  in Folder: 009:
+  xqilla(2.0), basex(2.0), saxon(2.0), lxml, xalan-j, rexml, jaxen, nokogiri: true
+  VTD-Gen: false
+------------------------------------------------------------
+'/bookstore>=/bookstore'  in Folder: 010:
+  xqilla(2.0), basex(2.0), saxon(2.0), rexml: true
+  lxml, xalan-j, VTD-Gen, jaxen, nokogiri: false
+
+
 python3 supervisor.py "-name:bookstore[.]" :
 Testing library: rexml , xpath: -name:bookstore[.]
 /usr/lib/ruby/2.3.0/rexml/xpath_parser.rb:431:in `expr': undefined method `to_f' for []:Array (NoMethodError)
@@ -94,6 +127,13 @@ number(boolean(..))
 count(..)
 count(parent::*)
 
+```
+Switchen zwischen xpath v1 und xpath v2 libs:
+'//data[@type=number(..<=..)]'  in Folder: 004:
+  xqilla(2.0), basex(2.0), saxon(2.0): <datatype="1">EvaluiertvonAuthentication</data>
+  lxml, xalan-j, VTD-Gen, jaxen, nokogiri: <datatype="0">EvaluiertvonBI</data>
+  rexml:
+```
 
 Libs sind sich nicht ganz sicher was denn jetzt der Root ist:
 ```

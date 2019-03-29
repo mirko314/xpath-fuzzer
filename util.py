@@ -19,7 +19,10 @@ def concatenate_list_data(list):
     return result
 
 def cleanup_errors(string):
-  return string.replace("Syntaxerrorafteroraroundtheendof==>", "") # VTD
+  string = string.replace("True", "true") # VTD
+  string = string.replace("False", "false") # VTD
+  string = string.replace("Syntaxerrorafteroraroundtheendof==>", "") # VTD
+  return string
 
 def strip_whitespace(string_to_strip):
   return string_to_strip.translate({whitespace: None}).replace("\n", "").replace(" ", "")
