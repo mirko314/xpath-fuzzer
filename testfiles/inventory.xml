@@ -50,8 +50,8 @@
       </definition-list>
     </excerpt>
   </book>
-  <my:book xmlns:my="uri:mynamespace" style="leather" price="29.50">
-    <my:title>Who's Who in Trenton</my:title>
-    <my:author>Robert Bob</my:author>
-  </my:book>
+  <a:book xmlns:a="https://a.com/" style="leather" price="29.50">
+    <a:title>Who's Who in Trenton</a:title>
+    <a:author>Robert Bob</a:author>
+  </a:book>
 </bookstore>
