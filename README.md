@@ -279,3 +279,70 @@ Testing library: VTD-Gen , xpath: //data[@type=number((./..<../..)<=..)]
 Testing took: 4.069594621658325 seconds to test 9 libraries with 1 xPath expressions.
 ```
 
+## Namespaces and prefixes
+For the use of Namespace Prefixes we supply the libraries with the following mappings:
+
+  'a': "https://a.com/",
+  'b': "https://b.com/",
+  'c': "https://c.com/",
+  'd': "https://d.com/",
+  'e': "https://e.com/"
+
+###LXML:
+Done
+If your XPath expression uses namespace prefixes, you must define them in a prefix mapping. To this end, pass a dictionary to the namespaces keyword argument that maps the namespace prefixes used in the XPath expression to namespace URIs:
+namespaces={'x': 'http://codespeak.net/ns/test1',
+...                           'b': 'http://codespeak.net/ns/test2'})
+
+https://lxml.de/xpathxslt.html
+
+### Nokogiri
+Done
+
+###REXML
+Done
+https://ruby-doc.org/stdlib-1.9.3/libdoc/rexml/rdoc/REXML/XPath.html
+Can have namespace mapping, yet not required.
+Infers automatically then.
+example to add:
+XPath.first( node, "a/x:b", { "x"=>"http://doofus" } )
+
+###VTD-Gen
+Done
+
+### jaxen
+Done:
+
+import org.jaxen.SimpleNamespaceContext;
+
+import java.util.HashMap;
+HashMap namespaceMap = new HashMap();
+namespaceMap.put( "a", "https://a.com/");
+namespaceMap.put( "b", "https://b.com/");
+namespaceMap.put( "c", "https://c.com/");
+namespaceMap.put( "d", "https://d.com/");
+namespaceMap.put( "e", "https://e.com/");
+
+org.jaxen.UnresolvableException: Cannot resolve namespace prefix 'a'
+### saxon
+javax.xml.xpath.XPathExpressionException: net.sf.saxon.trans.XPathException: Namespace prefix 'a' has not been declared
+### basex
+Use XQuery to declare namespace as variable
+[XPST0081] No namespace declared for 'a:elem1'
+Schwierig
+Irgendwie so:
+-b{URL}ln=value
+"declare namespace ns='URL'; declare variable $ns:ln external; $ns:ln"
+http://docs.basex.org/wiki/Command-Line_Options
+### xqilla
+Use XQuery to declare namespace as variable
+https://stackoverflow.com/questions/19357644/how-to-define-namespaces-for-xpath-using-the-xqilla-commandline-tool
+/dev/fd/63:1:3: error: No namespace for prefix 'a' [err:XPST0081]
+
+declare namespace dc="http://purl.org/dc/elements/1.1/";
+doc("my.file.xml")//dc:title
+
+xalan-j
+Done
+Help found https://stackoverflow.com/questions/6390339/how-to-query-xml-using-namespaces-in-java-with-xpath
+

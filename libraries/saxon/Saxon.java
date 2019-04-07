@@ -1,4 +1,5 @@
 import java.io.StringWriter;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,6 +53,18 @@ public class Saxon {
 
       // Create XPath object
       XPath xpath = xpathFactory.newXPath();
+
+        // Use SimpleNamespaceContext from https://stackoverflow.com/questions/6390339/how-to-query-xml-using-namespaces-in-java-with-xpath
+        HashMap<String, String> prefMap = new HashMap<String, String>() {{
+        put( "a", "https://a.com/");
+        put( "b", "https://b.com/");
+        put( "c", "https://c.com/");
+        put( "d", "https://d.com/");
+        put( "e", "https://e.com/");
+      }};
+      SimpleNamespaceContext namespaces = new SimpleNamespaceContext(prefMap);
+      xpath.setNamespaceContext(namespaces);
+
       XPathExpression expr = xpath.compile(XPath_expression);
       // Object result = expr.evaluate(doc);
       try {

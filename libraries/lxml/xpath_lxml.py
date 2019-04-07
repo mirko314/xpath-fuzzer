@@ -9,7 +9,13 @@ file_name = sys.argv[1]
 xpath = sys.argv[2]
 f = readFile(file_name)
 tree = etree.parse(file_name)
-results = tree.xpath(xpath)
+results = tree.xpath(xpath, namespaces={
+  'a': "https://a.com/",
+  'b': "https://b.com/",
+  'c': "https://c.com/",
+  'd': "https://d.com/",
+  'e': "https://e.com/"
+})
 if isinstance(results, list):
   for element in results:
     print(etree.tostring(element).decode("utf-8"))

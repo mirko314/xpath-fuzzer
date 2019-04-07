@@ -66,7 +66,9 @@ import org.jaxen.JaxenException;
 import org.jaxen.Navigator;
 import org.jaxen.dom.DocumentNavigator;
 import org.jaxen.function.StringFunction;
+import org.jaxen.SimpleNamespaceContext;
 
+import java.util.HashMap;
 
 import java.util.List;
 import java.util.Iterator;
@@ -85,7 +87,15 @@ public class jaxen {
 
       Document doc = builder.parse(args[0]);
 
+      HashMap namespaceMap = new HashMap();
+      namespaceMap.put( "a", "https://a.com/");
+      namespaceMap.put( "b", "https://b.com/");
+      namespaceMap.put( "c", "https://c.com/");
+      namespaceMap.put( "d", "https://d.com/");
+      namespaceMap.put( "e", "https://e.com/");
+
       XPath xpath = new DOMXPath(args[1]);
+      xpath.setNamespaceContext(new SimpleNamespaceContext(namespaceMap));
       Navigator navigator = xpath.getNavigator();
 
       // System.out.println("XPah:h " + xpath);

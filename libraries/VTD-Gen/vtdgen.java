@@ -44,7 +44,11 @@ public class vtdgen {
       vg.parse(true); // set namespace awareness to true
       VTDNav vn = vg.getNav();
       AutoPilot ap = new AutoPilot(vn);
-      ap.declareXPathNameSpace("ns1", "http://purl.org/dc/elements/1.1/");
+      ap.declareXPathNameSpace("a", "https://a.com/");
+      ap.declareXPathNameSpace("b", "https://b.com/");
+      ap.declareXPathNameSpace("c", "https://c.com/");
+      ap.declareXPathNameSpace("d", "https://d.com/");
+      ap.declareXPathNameSpace("e", "https://e.com/");
       ap.selectXPath(XPath_expression);
 
       FastLongBuffer flb = new FastLongBuffer(4);
