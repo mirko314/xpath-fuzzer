@@ -29,16 +29,18 @@ def save_output_array(xpath_query, foldername, results):
   # Results:
   # [Array of different Testresults of type: [Array of Libraries, Testresult of those Libraries]]
   # If all Libs have the same result, dont output anything
-  # if len(results) == 1:
-  #   return
+  if len(results) == 1:
+    return
   print("------------------------------------------------------------")
   print( "'" + xpath_query.strip() + "'  in Folder: " + folder + ": ")
   for result in xpath_results:
     libraries = map(lambda x: x[:-4], result[0])
     libraries = addXPathVersion(libraries)
 
-    test_result = color.BOLD + result[1] + color.END
-    print("  " + (", ").join(libraries) + ": " + test_result[:25] +  textwrap.shorten(test_result[25:], 40))
+    test_result = result[1]
+    test_result = test_result[:25] + textwrap.shorten(test_result[25:], 40)
+    test_result = color.BOLD + test_result + color.END
+    print("  " + (", ").join(libraries) + ": " + test_result)
 
 
 def compare_results(result1, result2):
