@@ -6,6 +6,7 @@ xpath =  ARGV[1]
 with_example_namespaces = true
 file = File.new( file_name )
 @doc = REXML::Document.new file
+@doc.context[:attribute_quote] = :quote
 namespaces = with_example_namespaces ? {
   'a'=> "https://a.com/",
   'b'=> "https://b.com/",
