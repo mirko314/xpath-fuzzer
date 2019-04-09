@@ -5,6 +5,8 @@ from util import color
 from util import concatenate_list_data
 from util import strip_whitespace
 
+results_without_difference = 0
+
 def multipleReplace(text, wordDict):
   for key in wordDict:
       text = text.replace(key, wordDict[key])
@@ -30,7 +32,7 @@ def save_output_array(xpath_query, foldername, results):
   # [Array of different Testresults of type: [Array of Libraries, Testresult of those Libraries]]
   # If all Libs have the same result, dont output anything
   if len(results) == 1:
-    return
+    return False
   print("------------------------------------------------------------")
   print( "'" + xpath_query.strip() + "'  in Folder: " + folder + ": ")
   for result in xpath_results:
@@ -41,6 +43,7 @@ def save_output_array(xpath_query, foldername, results):
     test_result = test_result[:25] + textwrap.shorten(test_result[25:], 40)
     test_result = color.BOLD + test_result + color.END
     print("  " + (", ").join(libraries) + ": " + test_result)
+  return True
 
 
 def compare_results(result1, result2):
@@ -72,8 +75,10 @@ for _count, folder in enumerate(sorted(folders_to_analyse)):
     #   output = color.BLUE + "EQUAL Result:     " + output + color.END
     # else:
     #   output = color.RED + "DIFFERENT Result: " +  output + color.END
-  save_output_array(xpath_query, folder, xpath_results)
+  if not save_output_array(xpath_query, folder, xpath_results):
+    results_without_difference += 1
 
 
+print(str(results_without_difference) + " XPaths had no different results.")
 print("Finished to analyze the outputs of /output.")
 
