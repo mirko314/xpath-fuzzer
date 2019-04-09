@@ -50,8 +50,13 @@
       </definition-list>
     </excerpt>
   </book>
-  <a:book xmlns:a="https://a.com/" style="leather" price="29.50">
-    <a:title>Who's Who in Trenton</a:title>
-    <a:author>Robert Bob</a:author>
-  </a:book>
+  <c:book xmlns:c="https://c.com/" style="leather" price="29.50">
+    <c:title>Who's Who in Trenton</c:title>
+    <c:author>Robert Bob</c:author>
+  </c:book>
+  <a:elem1 xmlns:a="https://a.com/">
+  <b:elem2 xmlns:b="https://b.com/">
+    <a:elem3 xmlns:a="https://c.com/"/>
+  </b:elem2>
+  </a:elem1>
 </bookstore>

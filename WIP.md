@@ -38,6 +38,30 @@ for f in test*; do (cat "${f}"; echo) >> /app/xpath/input.txt; done
 ```
 
 ## XPath Parse Trees
+
+### Comparing = and >=
+```
+/book=/book
+(main (expr (orExpr (andExpr (
+  equalityExpr (
+    relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))))
+  =
+    (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))))
+)))))
+```
+```
+/book>=/book
+(main (expr (orExpr (andExpr (
+  equalityExpr (
+  relationalExpr (
+    additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))))))))))
+  )
+  >=
+    (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot / (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book)))))))))))))
+))
+))))
+```
+
 ```
 //book/test/ads
 (main (expr (orExpr (andExpr (equalityExpr (relationalExpr (additiveExpr (multiplicativeExpr (unaryExprNoRoot (unionExprNoRoot (pathExprNoRoot (locationPath (absoluteLocationPathNoroot // (relativeLocationPath (step axisSpecifier (nodeTest (nameTest (qName (nCName book))))) / (step axisSpecifier (nodeTest (nameTest (qName (nCName test))))) / (step axisSpecifier (nodeTest (nameTest (qName (nCName ads)))))))))))))))))))
