@@ -59,8 +59,16 @@ public class vtdgen {
             flb.append(vn.getElementFragment());
         }
       } catch (XPathEvalException e) {
+        ap.resetXPath();
         System.out.print(ap.evalXPathToString());
         return;
+      } catch (NavException e) {
+        // This is for Attribute selection. getElementFragment does not work then.
+        // However this does only return the first result / first attribute value
+        ap.resetXPath();
+        System.out.print(ap.evalXPathToString());
+        return;
+
       }
       int size = flb.size();
       if (size != 0) {
@@ -73,6 +81,7 @@ public class vtdgen {
       }
 
     } catch (Exception e) {
+      e.printStackTrace();
 
     }
   }
