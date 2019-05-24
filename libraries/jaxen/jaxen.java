@@ -58,9 +58,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.Attr;
 
 import org.jaxen.dom.DOMXPath;
-import org.jaxen.dom.Attribute;
 
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
@@ -114,13 +114,14 @@ public class jaxen {
         while (resultIter.hasNext()) {
           Object resultObject =  resultIter.next();
 
-          if (resultObject instanceof Attribute) {
-            Attribute result = (Attribute) resultObject;
+          if (resultObject instanceof Attr) {
+            Attr result = (Attr) resultObject;
+            System.out.println(result.getValue());
           }else{
             Node result = (Node) resultObject;
+            System.out.println(nodeToString(result));
           }
           // String value = StringFunction.evaluate(result, navigator);
-          System.out.println(nodeToString(result));
         }
       } catch (java.lang.ClassCastException ex) {
         System.out.println(res_obj);

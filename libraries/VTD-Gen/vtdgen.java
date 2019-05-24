@@ -65,6 +65,12 @@ public class vtdgen {
       } catch (NavException e) {
         // This is for Attribute selection. getElementFragment does not work then.
         // However this does only return the first result / first attribute value
+
+        // Testing library: VTD-Gen , xpath: /bookstore/book/title/@lang
+        // com.ximpleware.NavException: node not an element
+        // at com.ximpleware.VTDNav.getElementFragment(VTDNav.java:1079)
+        // at vtdgen.main(vtdgen.java:59)
+
         ap.resetXPath();
         System.out.print(ap.evalXPathToString());
         return;
