@@ -32,6 +32,7 @@ public class XPathQueryExample {
     // System.setProperty("javax.xml.xpath.XPathFactory:"+NamespaceConstant.OBJECT_MODEL_SAXON, "net.sf.saxon.xpath.XPathFactoryImpl");
     XPathFactory xpathFactory = XPathFactory.newInstance();
     // System.out.println("-----------------------" + xpathFactory.toString());
+    // https://github.com/openjdk-mirror/jdk7u-jaxp/blob/master/src/com/sun/org/apache/xpath/internal/jaxp/XPathFactoryImpl.java
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setNamespaceAware(true);
 

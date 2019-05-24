@@ -60,6 +60,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import org.jaxen.dom.DOMXPath;
+import org.jaxen.dom.Attribute;
 
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
@@ -111,7 +112,13 @@ public class jaxen {
       // System.out.println("Results");
       // System.out.println("----------------------------------");
         while (resultIter.hasNext()) {
-          Node result = (Node) resultIter.next();
+          Object resultObject =  resultIter.next();
+
+          if (resultObject instanceof Attribute) {
+            Attribute result = (Attribute) resultObject;
+          }else{
+            Node result = (Node) resultObject;
+          }
           // String value = StringFunction.evaluate(result, navigator);
           System.out.println(nodeToString(result));
         }
