@@ -17,7 +17,11 @@ results = tree.xpath(xpath, namespaces={
   'e': "https://e.com/"
 })
 if isinstance(results, list):
-  for element in results:
-    print(etree.tostring(element).decode("utf-8"))
+  for element in [s for s in results]:
+    # if is attribute
+    if isinstance(element, etree._ElementUnicodeResult):
+      print(element)
+    else:
+      print(etree.tostring(element, pretty_print=True))
 else:
   print(results)
