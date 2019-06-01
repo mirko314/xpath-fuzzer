@@ -25,7 +25,7 @@ def extractDataFromGithubUrl(url):
   return {"owner": owner, "name": name}
 
 print("Check any public github repo for dependencies")
-print("Enter the following arguments: $github-url $csv-of-search-strings")
+print("Enter the following arguments: $csv-of-search-strings $github-url")
 print("Example: saxon,jaxen https://github.com/wso2/carbon-data")
 
 url = sys.argv[2]

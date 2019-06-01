@@ -16,7 +16,7 @@ def addXPathVersion(libraries):
   lib_to_xpath = {
     "xqilla": "xqilla(2.0)",
     "basex": "basex(2.0)",
-    "saxon": "saxon(2.0)",
+    "saxon": "saxon(3.1)",
   }
   return map(lambda x: multipleReplace(x, lib_to_xpath), libraries)
 
