@@ -17,13 +17,13 @@ There are 3 Tasks:
 # Generate xPaths using Grammarinator + ANTLR4
 bash input_generation.sh
 
-# Test all input.txt lines as XPath Expressions on testfile/inventory.xml
+# Test all input.txt lines as XPath Expressions on testfile/testdocument.xml
 python3 supervisor.py
 
 # Analyse the Output of the tests in output/
 python3 analyzer.py
 
-# Quick Test Single XPath: e.g. //book on testfile/inventory.xml
+# Quick Test Single XPath: e.g. //book on testfile/testdocument.xml
 python3 supervisor.py //book
 ```
 ## Architecture

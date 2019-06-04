@@ -36,12 +36,12 @@ def testlibrary(libraryName, testFileName, xpath):
   # output, error = process.communicate()
 
 def testAndSaveOutput(libraryName, testFileName, xpath, counter):
-  output = testlibrary(libraryName, "inventory.xml", xpath)
+  output = testlibrary(libraryName, "testdocument.xml", xpath)
   saveOutput(libraryName, str(counter), xpath, output)
 
 def testAndPrintOutput(libraryName, testFileName, xpath, _counter):
   print(" ".join(["Testing library:", libraryName, ", xpath:", xpath]))
-  output = testlibrary(libraryName, "inventory.xml", xpath)
+  output = testlibrary(libraryName, "testdocument.xml", xpath)
   print("".join(output))
 
 def printInstructions():
@@ -71,7 +71,7 @@ args = []
 counter = 0
 for xpath in xpaths:
   counter += 1
-  args = args + list(map(lambda lib: [lib, "inventory.xml", xpath, str(counter)], LIBRARIES))
+  args = args + list(map(lambda lib: [lib, "testdocument.xml", xpath, str(counter)], LIBRARIES))
 print(args)
 if MODE == "all":
   with Pool(PARALLEL_PROCESSES) as p:
