@@ -12,7 +12,8 @@ RUN apt-get install python3-lxml=3.7.1-1 --assume-yes
 #sudo apt-add-repository ppa:brightbox/ruby-ng -y
 #sudo apt-get update
 #\curl -sSL https://get.rvm.io | bash -s stable --ruby
-RUN apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev bundler --assume-yes
+RUN apt-get update
+RUN apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev bundler --assume-yes --fix-missing
 RUN gem install nokogiri:1.10.1 rexml:3.2.1
 
 
