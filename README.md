@@ -34,7 +34,7 @@ python3 supervisor.py //book
 
 ## Namespace Prefixes
 All Libraries except rexml only allow xpath expressions with namespace prefixes when those namespaces are bound to the uri explicitly.
-We set up the libraries with 6 example namespace prefixes:
+We set up the libraries with 5 example namespace prefixes:
 ```
 prefix 'a' is bound to https://a.com/
 prefix 'b' is bound to https://b.com/
