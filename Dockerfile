@@ -1,4 +1,4 @@
-FROM openjdk:latest
+FROM openjdk:11-stretch
 RUN apt-get update
 # Install XPATH Libs
 RUN apt-get install python3 python3-pip --assume-yes
